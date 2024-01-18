@@ -1,0 +1,46 @@
+import React, { useState } from "react";
+
+const Fruits = () => {
+  const [favouritfruits, setFavouriteFruits] = useState([
+    "Apple",
+    "Mango",
+    "Banana",
+  ]);
+
+  const [inputFruit, setInputFruit] = useState("");
+
+  function handleFruitInput(e) {
+    setInputFruit(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    setFavouriteFruits((prev) => {
+      let dummyFruitArray = [...prev];
+      dummyFruitArray = [...dummyFruitArray, inputFruit];
+      return dummyFruitArray;
+    });
+    setInputFruit("");
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Enter Fruits"
+          name="fruit"
+          value={inputFruit}
+          onChange={handleFruitInput}
+        />
+        <button type="submit">ADD Fruits</button>
+      </form>
+      {favouritfruits.map((Fruit, index) => (
+        <h1 key={index}>{Fruit}</h1>
+      ))}
+    </div>
+  );
+};
+
+export default Fruits;

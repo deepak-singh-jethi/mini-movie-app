@@ -1,0 +1,80 @@
+import React from "react";
+import { useState } from "react";
+import "./App.css";
+
+const initialDetails = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
+
+const App = function () {
+  const [user, setUser] = useState(initialDetails);
+
+  const [message, setMessage] = useState("");
+  const { name, email, password, confirmPassword } = user;
+
+  function updateUser(e) {
+    let key = e.target.name;
+    setUser({ ...user, [key]: e.target.value });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!name || !email || !password || !confirmPassword) {
+      alert("please fill all the fields");
+    } else if (password !== confirmPassword) {
+      alert("password and confirm password must be same");
+    } else {
+      setMessage("You have registred successfully");
+    }
+  }
+
+  return (
+    <div>
+      {message && (
+        <div>
+          <h1>{`hey ${name} ${message}`}</h1>
+        </div>
+      )}
+      <form>
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={updateUser}
+          name="name"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={updateUser}
+          name="email"
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={updateUser}
+          name="password"
+        />
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={updateUser}
+          name="confirmPassword"
+        />
+
+        <button type="submit" onClick={handleSubmit}>
+          Submit
+        </button>
+      </form>
+    </div>
+  );
+};
+
+export default App;
